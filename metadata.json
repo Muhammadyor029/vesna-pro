@@ -1,0 +1,6 @@
+{
+  "name": "ALIF.12",
+  "description": "Boşlanğiç va maktabga kiruvçilar uçun yangi özbek lotin alifbosi (29 ta), mantiq, raqamlar va 40 ta interaktiv öyin.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

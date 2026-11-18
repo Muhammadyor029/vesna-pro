@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>VESNA PRO — 5–11-sinf mashqlari</title>
+    <meta name="description" content="5–11-sinf o‘quvchilari uchun matematika, ona tili, rus tili, ingliz tili, qoraqalpoq tili va mantiq bo‘yicha 40 ta interaktiv mashq." />
+    <meta property="og:title" content="VESNA PRO — 5–11-sinf mashqlari" />
+    <meta property="og:description" content="5–11-sinf o‘quvchilari uchun matematika, tillar va mantiq bo‘yicha 40 ta interaktiv mashq." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+    <link rel="alternate icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0b0d1c" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300..900;1,400..700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+
+    <!-- Sculpted 3D Liquid Crystal Background Canvas -->
+    <div class="site-bg" id="site-bg" aria-hidden="true"></div>
+    <canvas id="living-bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- View 1: Gallery -->
+    <section id="view-gallery" class="view" aria-label="Sfera">
+      <div id="gal-canvas" class="canvas-host"></div>
+      <div class="gal-side gal-side--left"><span class="gal-side-inner" data-i18n="gallery_left">5–11-SINF</span></div>
+      <div class="gal-side gal-side--right"><span class="gal-side-inner" data-i18n="gallery_right">MATEMATIKA · TILLAR</span></div>
+      <div class="gal-counter-wrap"><span class="gal-counter" id="gal-counter">001</span></div>
+      <div class="gal-caption" aria-live="polite">
+        <div class="gal-caption-inner" id="gal-caption-inner"></div>
+      </div>
+      <div class="gal-hint" id="gal-hint" data-i18n="hint_spin">AYLANTIRIB TANLANG</div>
+      <div class="gal-overview" id="gal-overview" aria-hidden="true">
+        <div class="ov-head">
+          <div class="ov-meta">
+            <span class="ov-title" id="ov-title"></span>
+            <span class="ov-sub" id="ov-sub"></span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="pill-btn" id="ov-play" style="background:var(--ink);color:#0c0c0d;" data-i18n="play_arrow">Öynaş →</button>
+            <button type="button" class="pill-btn" id="ov-close" data-i18n="close">Yopiş</button>
+          </div>
+        </div>
+        <p class="ov-desc" id="ov-desc"></p>
+        <div class="ov-tags">
+          <span class="ov-tag" data-i18n="tag1">5–11-sinf</span>
+          <span class="ov-tag" data-i18n="tag2">Matematika va tillar</span>
+          <span class="ov-tag" data-i18n="tag3">Tezkor mashq</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- View 2: Projects -->
+    <section id="view-projects" class="view" aria-label="Maşqlar">
+      <div id="proj-canvas" class="canvas-host"></div>
+    </section>
+
+    <!-- View 3: 29-Letter Alphabet Studio -->
+    <section id="view-alphabet" class="view view-scroll" aria-label="Harflar">
+      <div id="alpha-host" class="alpha-host"></div>
+    </section>
+
+    <!-- View 4: Alifbo (3D Robot + Inline Yo'riqnoma) -->
+    <section id="view-about" class="view" aria-label="Alifbo">
+      <div id="about-canvas" class="canvas-host"></div>
+      <div class="about-guide-dock" id="about-guide-dock">
+        <button type="button" class="pill-btn about-guide-toggle" id="about-guide-toggle" aria-expanded="false">
+          <span aria-hidden="true">📖</span>
+          <span data-i18n="guide_btn">Sayt yöriqnomasi</span>
+        </button>
+        <aside class="about-guide-panel" id="about-guide-panel" aria-hidden="true">
+          <div class="about-guide-head">
+            <div>
+              <h2 class="about-guide-title" id="guide-title" data-i18n="guide_title">VESNA PRO — Yoʻriqnoma</h2>
+              <p class="about-guide-sub" id="guide-sub" data-i18n="guide_sub">5–11-sinf oʻquvchilari va oʻqituvchilari uchun</p>
+            </div>
+            <button type="button" class="pill-btn about-guide-close" id="about-guide-close" data-i18n="close">Yopiş</button>
+          </div>
+          <div class="guide-body" id="guide-body"></div>
+        </aside>
+      </div>
+      <div class="about-scroll-hint" id="about-scroll-hint">
+        <span data-i18n="scroll">SURİŞ</span><span class="about-scroll-arrow" id="about-scroll-arrow">→</span>
+      </div>
+    </section>
+
+    <!-- Floating Cursors -->
+    <div class="gal-cursor-label" id="gal-cursor-label">Ma'lumot</div>
+    <div class="proj-view-bubble" id="proj-view-bubble">Öynaş</div>
+
+    <!-- Interactive Game Modal -->
+    <div class="edu-modal" id="edu-modal" aria-hidden="true">
+      <div class="edu-stage">
+        <div class="edu-top">
+          <div class="edu-top-meta">
+            <span class="edu-top-title" id="edu-title"></span>
+            <span class="edu-top-sub" id="edu-sub"></span>
+          </div>
+          <div class="edu-top-right">
+            <span class="edu-score" id="edu-score">★ 0</span>
+            <button type="button" class="pill-btn" id="edu-close" data-i18n="close">Yopiş</button>
+          </div>
+        </div>
+        <div id="edu-body"></div>
+      </div>
+    </div>
+
+
+
+    <!-- Shared Liquid Glass Dock Navbar & Settings Panel -->
+    <div class="dock-menu-panel" id="dock-menu-panel" aria-hidden="true">
+      <p class="menu-avail" data-i18n="menu_intro">Yangi özbek alifbosi: Ç · Ğ · Ö · Ş · ʼ</p>
+      <div class="menu-group">
+        <span class="menu-label" data-i18n="set_every">Köz dam olişi har</span>
+        <div class="chips" id="chips-interval"></div>
+      </div>
+      <div class="menu-group">
+        <span class="menu-label" data-i18n="set_rest">Dam oliş vaqti</span>
+        <div class="chips" id="chips-rest"></div>
+      </div>
+      <button type="button" class="menu-row menu-btn" id="btn-theme-toggle" role="switch" aria-checked="false">
+        <span data-i18n="theme_mode">Kungi / Tungi rejim</span>
+        <span class="vesna-theme-switch is-menu" id="menu-theme-switch" aria-hidden="true">
+          <span class="vts-glow"></span>
+          <span class="vts-stars"><i></i><i></i></span>
+          <span class="vts-thumb">
+            <svg class="vts-icon vts-moon" viewBox="0 0 24 24" fill="none"><path d="M20.2 14.5A8.2 8.2 0 0 1 9.5 3.8a8.4 8.4 0 1 0 10.7 10.7Z" fill="currentColor"/></svg>
+            <svg class="vts-icon vts-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+        </span>
+      </button>
+      <button type="button" class="menu-row menu-btn" id="btn-guide-open">
+        <span data-i18n="guide_btn">Sayt yöriqnomasi</span><span class="menu-row-num">📖</span>
+      </button>
+      <button type="button" class="menu-row menu-btn" id="btn-rest-now">
+        <span data-i18n="rest_now">Hozir dam olamiz</span><span class="menu-row-num">🌙</span>
+      </button>
+      <button type="button" class="menu-row menu-btn" id="btn-eye-now">
+        <span data-i18n="eye_now">Köz maşqi</span><span class="menu-row-num">👀</span>
+      </button>
+    </div>
+
+    <nav class="dock" id="dock" aria-label="Asosiy menyu">
+      <div class="dock-glass-refract" aria-hidden="true"></div>
+      <div class="dock-active-pill" id="dock-active-pill" aria-hidden="true"></div>
+      <a class="dock-brand" href="#gallery" data-route="gallery">VESNA PRO</a>
+      <div class="dock-sep" aria-hidden="true"></div>
+      <a class="dock-tab" href="#gallery" data-route="gallery">
+        <span class="dock-tab-label" data-i18n="nav_sphere">Sfera</span>
+        <span class="dock-tab-num">1</span>
+      </a>
+      <a class="dock-tab" href="#projects" data-route="projects">
+        <span class="dock-tab-label" data-i18n="nav_games">Maşqlar</span>
+        <span class="dock-tab-num">2</span>
+      </a>
+      <a class="dock-tab" href="#alphabet" data-route="alphabet">
+        <span class="dock-tab-label" data-i18n="nav_letters">Harflar</span>
+        <span class="dock-tab-num">3</span>
+      </a>
+      <a class="dock-tab" href="#about" data-route="about">
+        <span class="dock-tab-label" data-i18n="nav_alphabet">Alifbo</span>
+        <span class="dock-tab-num">4</span>
+      </a>
+      <div class="dock-sep" aria-hidden="true"></div>
+      <button type="button" class="dock-icon" id="nav-guide" aria-label="Sayt yöriqnomasi" title="Sayt yöriqnomasi">
+        <span class="dock-icon-glyph" aria-hidden="true">📖</span>
+      </button>
+      <button type="button" class="vesna-theme-switch" id="nav-theme" role="switch" aria-checked="false" aria-label="Kun / Tun rejimi" title="Kungi / Tungi rejim">
+        <span class="vts-glow" aria-hidden="true"></span>
+        <span class="vts-stars" aria-hidden="true"><i></i><i></i></span>
+        <span class="vts-thumb" aria-hidden="true">
+          <svg class="vts-icon vts-moon" viewBox="0 0 24 24" fill="none"><path d="M20.2 14.5A8.2 8.2 0 0 1 9.5 3.8a8.4 8.4 0 1 0 10.7 10.7Z" fill="currentColor"/></svg>
+          <svg class="vts-icon vts-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+      </button>
+      <button type="button" class="dock-icon" id="nav-lang" aria-label="Language" aria-expanded="false">
+        <span class="dock-icon-glyph" aria-hidden="true">🌐</span><span class="dock-icon-label" id="lang-code">UZ</span>
+      </button>
+      <button type="button" class="dock-menu-btn" id="dock-menu-btn" aria-label="Menyu" aria-expanded="false">
+        <span class="dock-menu-dot"></span>
+      </button>
+    </nav>
+
+    <div class="lang-pop" id="lang-pop" aria-hidden="true"></div>
+    <div id="root"></div>
+    <noscript><p style="color:#fff;padding:24px;font-family:sans-serif">JavaScript kerak / Нужен JavaScript / JavaScript required.</p></noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
