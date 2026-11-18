@@ -98,3 +98,21 @@
   .pvp-round { grid-column: 2; }
   .pvp-timer { display: none; }
 }
+.site-credit {
+  position: fixed;
+  right: 12px;
+  bottom: 10px;
+  z-index: 6;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(8, 10, 22, .62);
+  border: 1px solid rgba(255, 255, 255, .14);
+  color: rgba(255, 255, 255, .72);
+  font: 600 10px/1.2 "Nunito", ui-sans-serif, sans-serif;
+  letter-spacing: .01em;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+@media (max-width: 620px) {
+  .site-credit { right: 8px; bottom: 74px; font-size: 9px; }
+}

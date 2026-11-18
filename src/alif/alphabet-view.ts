@@ -55,16 +55,16 @@ function buildCheckForLetter(entry: AlphabetEntry): AlphabetCheckSchema {
   if (entry.upper === 'Ç') {
     return {
       title: '3-harf tekşiruvi',
-      prompt: 'Avvalgi «Ch ch» tovuşi yangi alifboda qanday yoziladi?',
+      prompt: '3-örindagi harf qaysi?',
       options: shuffleArr(['Ç ç', 'Ş ş', 'C c', 'Ğ ğ']),
       answer: 'Ç ç',
-      explain: 'Töğri! Avvalgi «Ch ch» endi «Ç ç» tarzida yoziladi (masalan: Çoynak).'
+      explain: 'Töğri! 3-örinda «Ç ç» turadi (masalan: Çoynak).'
     };
   }
   if (entry.upper === 'Ğ') {
     return {
       title: '8-harf tekşiruvi',
-      prompt: 'Avvalgi «Gʻ gʻ» harfi alifboda neçinçi örinda va qanday yoziladi?',
+      prompt: '«Ğ ğ» harfi alifboda neçinçi örinda turadi?',
       options: shuffleArr(['8 · Ğ ğ', '7 · G g', '22 · Ş ş', '17 · Ö ö']),
       answer: '8 · Ğ ğ',
       explain: 'Töğri! «Ğ ğ» alifboda 8-örinda turadi (masalan: Ğoz, Toğ).'
@@ -73,19 +73,19 @@ function buildCheckForLetter(entry: AlphabetEntry): AlphabetCheckSchema {
   if (entry.upper === 'Ö') {
     return {
       title: '17-harf tekşiruvi',
-      prompt: 'Avvalgi «Oʻ oʻ» harfi örniga qaysi harf işlatiladi?',
+      prompt: '17-örinda qaysi harf turadi?',
       options: shuffleArr(['Ö ö', 'O o', 'U u', 'Ğ ğ']),
       answer: 'Ö ö',
-      explain: 'Töğri! «Oʻ oʻ» endi «Ö ö» bölib 17-örinda turadi (Ördak).'
+      explain: 'Töğri! «Ö ö» 17-örinda turadi (Ördak).'
     };
   }
   if (entry.upper === 'Ş') {
     return {
       title: '22-harf tekşiruvi',
-      prompt: '«Quyosh» sözidagi «sh» örniga qaysi harf yoziladi?',
+      prompt: '«Quyoş» sözidagi 22-harf qaysi?',
       options: shuffleArr(['Ş ş', 'S s', 'Ç ç', 'J j']),
       answer: 'Ş ş',
-      explain: 'Töğri! Avvalgi «Sh sh» endi «Ş ş» (Quyoş, Şar, Şir).'
+      explain: 'Töğri! 22-örinda «Ş ş» turadi (Quyoş, Şar, Şir).'
     };
   }
   if (entry.type === 'belgi') {
@@ -161,7 +161,7 @@ export function createAlphabetView() {
   let activeFilter: FilterId = 'all';
   let selectedIdx = 2; // Start on #3 Ç ç so reformed letters are immediately clear
   let matrixSubTab: 'trace' | 'check' = 'trace';
-  let converterText = "Choynak, shahar, o'rdak, g'oz va ma'no";
+  let converterText = 'Çoynak, Şar, Ördak, Ğoz va Maʼno';
   let expandedCardIdx: number | null = 2;
   let quizIdx = 0;
   let quizStreak = 0;
@@ -178,14 +178,14 @@ export function createAlphabetView() {
 
   const CARD_QUIZ_BANK = [
     { q: '3-örinda turgan yangi harf qaysi?', opts: ['Ç ç', 'Ş ş', 'Ö ö', 'Ğ ğ'], a: 'Ç ç' },
-    { q: '29-örinda alifboga nima qöşilgan?', opts: ['ʼ (tutuq belgisi)', 'Ng ng', 'Sh sh', 'Ch ch'], a: 'ʼ (tutuq belgisi)' },
-    { q: 'Avvalgi «Oʻ oʻ» yangi alifboda neçinçi va qaysi harf?', opts: ['17 · Ö ö', '16 · O o', '8 · Ğ ğ', '22 · Ş ş'], a: '17 · Ö ö' },
-    { q: 'Avvalgi «Sh sh» qaysi harf bilan almaşdi?', opts: ['Ş ş (22)', 'Ç ç (3)', 'S s (21)', 'Ğ ğ (8)'], a: 'Ş ş (22)' },
-    { q: 'Avvalgi «Gʻ gʻ» qaysi harfga aylandi?', opts: ['Ğ ğ (8)', 'G g (7)', 'Q q (19)', 'Ö ö (17)'], a: 'Ğ ğ (8)' },
+    { q: '29-örinda alifboga nima qöşilgan?', opts: ['ʼ (tutuq belgisi)', 'Ng ng', 'Ş ş', 'Ç ç'], a: 'ʼ (tutuq belgisi)' },
+    { q: '17-örinda qaysi harf turadi?', opts: ['17 · Ö ö', '16 · O o', '8 · Ğ ğ', '22 · Ş ş'], a: '17 · Ö ö' },
+    { q: '22-örindagi harf qaysi?', opts: ['Ş ş (22)', 'Ç ç (3)', 'S s (21)', 'Ğ ğ (8)'], a: 'Ş ş (22)' },
+    { q: '8-örindagi harf qaysi?', opts: ['Ğ ğ (8)', 'G g (7)', 'Q q (19)', 'Ö ö (17)'], a: 'Ğ ğ (8)' },
     { q: '«Quyosh» sözining yangi alifbodagi töğri yozuvi:', opts: ['Quyoş', 'Quyos', 'Quyoch', 'Qöyoş'], a: 'Quyoş' },
-    { q: '«Ma’no» sözida 29-belgi qanday qöyiladi?', opts: ['Maʼno', 'Mano', 'Mağno', 'Maçno'], a: 'Maʼno' },
+    { q: '«Maʼno» sözida 29-belgi qanday qöyiladi?', opts: ['Maʼno', 'Mano', 'Mağno', 'Maçno'], a: 'Maʼno' },
     { q: '«Choynak» sözi qaysi harf bilan boşlanadi?', opts: ['Ç', 'Ş', 'C', 'Ğ'], a: 'Ç' },
-    { q: '«Bog‘» sözi oxirida qaysi harf yoziladi?', opts: ['ğ', 'g', 'q', 'ç'], a: 'ğ' },
+    { q: '«Toğ» sözi oxirida qaysi harf yoziladi?', opts: ['ğ', 'g', 'q', 'ç'], a: 'ğ' },
     { q: 'Alifboda 1-örindagi unli harf qaysi?', opts: ['A a', 'O o', 'E e', 'I i'], a: 'A a' }
   ];
   let quizOrder = shuffleArr(CARD_QUIZ_BANK.map((_, i) => i));

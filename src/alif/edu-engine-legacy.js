@@ -67,12 +67,12 @@ function drawCoverBg(ctx, w, h, key, dimAlpha = 0.35) {
 export const UZ_ALPHABET = [
   { num: 1, upper: 'A', lower: 'a', example: 'Anor', words: ['Anor', 'Ari', 'Asal'], art: 'olma', hint: '1-harf · Unli tovuş', type: 'unli' },
   { num: 2, upper: 'B', lower: 'b', example: 'Bola', words: ['Bola', 'Boğ', 'Baliq'], art: 'sir', hint: '2-harf · Undosh tovuş', type: 'undosh' },
-  { num: 3, upper: 'Ç', lower: 'ç', example: 'Çoynak', words: ['Çoynak', 'Çana', 'Çiroq'], art: 'coy', hint: '3-harf · Yangi harf (avvalgi Ch ch)', type: 'yangi', old: 'Ch ch' },
+  { num: 3, upper: 'Ç', lower: 'ç', example: 'Çoynak', words: ['Çoynak', 'Çana', 'Çiroq'], art: 'coy', hint: '3-harf · Yangi harf (avvalgi Ç ç)', type: 'yangi', old: 'Ç ç' },
   { num: 4, upper: 'D', lower: 'd', example: 'Daftar', words: ['Daftar', 'Daraxt', 'Daryo'], art: 'kitob', hint: '4-harf · Undosh tovuş', type: 'undosh' },
   { num: 5, upper: 'E', lower: 'e', example: 'Eşik', words: ['Eşik', 'Erkak', 'Elak'], art: 'kitob', hint: '5-harf · Unli tovuş', type: 'unli' },
   { num: 6, upper: 'F', lower: 'f', example: 'Fil', words: ['Fil', 'Fasl', 'Fonar'], art: 'sir', hint: '6-harf · Undosh tovuş', type: 'undosh' },
   { num: 7, upper: 'G', lower: 'g', example: 'Gul', words: ['Gul', 'Gilam', 'Gilos'], art: 'gul', hint: '7-harf · Undosh tovuş', type: 'undosh' },
-  { num: 8, upper: 'Ğ', lower: 'ğ', example: 'Ğoz', words: ['Ğoz', 'Toğ', 'Boğ'], art: 'tog', hint: '8-harf · Yangi harf (avvalgi Gʻ gʻ)', type: 'yangi', old: 'Gʻ gʻ' },
+  { num: 8, upper: 'Ğ', lower: 'ğ', example: 'Ğoz', words: ['Ğoz', 'Toğ', 'Boğ'], art: 'tog', hint: '8-harf · Yangi harf (avvalgi Ğ ğ)', type: 'yangi', old: 'Ğ ğ' },
   { num: 9, upper: 'H', lower: 'h', example: 'Havo', words: ['Havo', 'Hovli', 'Hikoya'], art: 'sar', hint: '9-harf · Undosh tovuş', type: 'undosh' },
   { num: 10, upper: 'I', lower: 'i', example: 'Ilm', words: ['Ilm', 'Ikki', 'Issiq'], art: 'kitob', hint: '10-harf · Unli tovuş', type: 'unli' },
   { num: 11, upper: 'J', lower: 'j', example: 'Jöja', words: ['Jöja', 'Jayron', 'Jilğa'], art: 'ordak', hint: '11-harf · Undosh tovuş', type: 'undosh' },
@@ -81,12 +81,12 @@ export const UZ_ALPHABET = [
   { num: 14, upper: 'M', lower: 'm', example: 'Maktab', words: ['Maktab', 'Meva', 'Muşuk'], art: 'kitob', hint: '14-harf · Undosh tovuş', type: 'undosh' },
   { num: 15, upper: 'N', lower: 'n', example: 'Non', words: ['Non', 'Nur', 'Nok'], art: 'quyos', hint: '15-harf · Undosh tovuş', type: 'undosh' },
   { num: 16, upper: 'O', lower: 'o', example: 'Olma', words: ['Olma', 'Osmon', 'Ota'], art: 'olma', hint: '16-harf · Unli tovuş', type: 'unli' },
-  { num: 17, upper: 'Ö', lower: 'ö', example: 'Ördak', words: ['Ördak', 'Öqiş', 'Qözi'], art: 'ordak', hint: '17-harf · Yangi harf (avvalgi Oʻ oʻ)', type: 'yangi', old: 'Oʻ oʻ' },
+  { num: 17, upper: 'Ö', lower: 'ö', example: 'Ördak', words: ['Ördak', 'Öqiş', 'Qözi'], art: 'ordak', hint: '17-harf · Yangi harf (avvalgi Ö ö)', type: 'yangi', old: 'Ö ö' },
   { num: 18, upper: 'P', lower: 'p', example: 'Poyezd', words: ['Poyezd', 'Paxta', 'Piyola'], art: 'poyezd', hint: '18-harf · Undosh tovuş', type: 'undosh' },
   { num: 19, upper: 'Q', lower: 'q', example: 'Qurbaqa', words: ['Qurbaqa', 'Qalam', 'Qor'], art: 'qurbaqa', hint: '19-harf · Undosh tovuş', type: 'undosh' },
   { num: 20, upper: 'R', lower: 'r', example: 'Raketa', words: ['Raketa', 'Rasm', 'Rang'], art: 'raketa', hint: '20-harf · Undosh tovuş', type: 'undosh' },
   { num: 21, upper: 'S', lower: 's', example: 'Soat', words: ['Soat', 'Suv', 'Savat'], art: 'quyos', hint: '21-harf · Undosh tovuş', type: 'undosh' },
-  { num: 22, upper: 'Ş', lower: 'ş', example: 'Şar', words: ['Şar', 'Şir', 'Quyoş'], art: 'sir', hint: '22-harf · Yangi harf (avvalgi Sh sh)', type: 'yangi', old: 'Sh sh' },
+  { num: 22, upper: 'Ş', lower: 'ş', example: 'Şar', words: ['Şar', 'Şir', 'Quyoş'], art: 'sir', hint: '22-harf · Yangi harf (avvalgi Ş ş)', type: 'yangi', old: 'Ş ş' },
   { num: 23, upper: 'T', lower: 't', example: 'Tarozi', words: ['Tarozi', 'Toğ', 'Tuz'], art: 'tarozi', hint: '23-harf · Undosh tovuş', type: 'undosh' },
   { num: 24, upper: 'U', lower: 'u', example: 'Uçqur', words: ['Uçqur', 'Uzum', 'Uy'], art: 'raketa', hint: '24-harf · Unli tovuş', type: 'unli' },
   { num: 25, upper: 'V', lower: 'v', example: 'Vatan', words: ['Vatan', 'Vodiy', 'Varaqa'], art: 'tog', hint: '25-harf · Undosh tovuş', type: 'undosh' },
@@ -572,30 +572,30 @@ function updateAndDrawParticles(ctx, list) {
 }
 
 const PVP_LANG_QUESTIONS = [
-  { q: 'Avvalgi «Ch ch» yangi alifboda nechanchi va qaysi harf?', opts: ['3 · Ç ç', '22 · Ş ş', '8 · Ğ ğ', '17 · Ö ö'], a: '3 · Ç ç' },
-  { q: 'Avvalgi «Sh sh» qaysi harfga o‘zgargan?', opts: ['Ş ş (22)', 'Ç ç (3)', 'S s (21)', 'Ğ ğ (8)'], a: 'Ş ş (22)' },
-  { q: 'Avvalgi «Gʻ gʻ» qaysi harf bilan yoziladi?', opts: ['Ğ ğ (8)', 'G g (7)', 'Q q (19)', 'H h (9)'], a: 'Ğ ğ (8)' },
-  { q: 'Avvalgi «Oʻ oʻ» yangi alifboda qanday yoziladi?', opts: ['Ö ö (17)', 'O o (16)', 'U u (24)', 'I i (10)'], a: 'Ö ö (17)' },
-  { q: 'Alifboning 29-o‘rnida qaysi belgi turadi?', opts: ['ʼ (tutuq)', 'Ng ng', 'Ş ş', 'Ç ç'], a: 'ʼ (tutuq)' },
-  { q: '«Quyosh» so‘zi yangi alifboda qanday yoziladi?', opts: ['Quyoş', 'Quyos', 'Quyoch', 'Qöyoş'], a: 'Quyoş' },
-  { q: '«O‘rdak» so‘zining to‘g‘ri yangi yozuvi:', opts: ['Ördak', 'Ordak', 'Urdak', 'Ğördak'], a: 'Ördak' },
-  { q: '«Choynak» so‘zi qaysi harf bilan boshlanadi?', opts: ['Ç', 'Ş', 'C', 'Ğ'], a: 'Ç' },
-  { q: '«Ma’no» so‘zida 29-belgi qanday qo‘yiladi?', opts: ['Maʼno', 'Mano', 'Mağno', 'Maçno'], a: 'Maʼno' },
-  { q: '«G‘oz» so‘zining bosh harfi qaysi?', opts: ['Ğ', 'G', 'Q', 'Ö'], a: 'Ğ' },
-  { q: '«Bog‘» so‘zi oxirida qaysi harf yoziladi?', opts: ['ğ', 'g', 'q', 'ç'], a: 'ğ' },
-  { q: '«Shamol» so‘zining yangi shakli:', opts: ['Şamol', 'Çamol', 'Samol', 'Ğamol'], a: 'Şamol' },
-  { q: 'Alifboda 1-o‘rindagi unli harf:', opts: ['A a', 'O o', 'E e', 'I i'], a: 'A a' },
-  { q: '«A’lo» so‘zidagi belgi nechanchi o‘rinda?', opts: ['29 · ʼ', '28 · Z', '17 · Ö', '3 · Ç'], a: '29 · ʼ' },
+  { q: 'Avvalgi «Ç ç» yangi alifboda nechanchi va qaysi harf?', opts: ['3 · Ç ç', '22 · Ş ş', '8 · Ğ ğ', '17 · Ö ö'], a: '3 · Ç ç' },
+  { q: 'Avvalgi «Ş ş» qaysi harfga özgargan?', opts: ['Ş ş (22)', 'Ç ç (3)', 'S s (21)', 'Ğ ğ (8)'], a: 'Ş ş (22)' },
+  { q: 'Avvalgi «Ğ ğ» qaysi harf bilan yoziladi?', opts: ['Ğ ğ (8)', 'G g (7)', 'Q q (19)', 'H h (9)'], a: 'Ğ ğ (8)' },
+  { q: 'Avvalgi «Ö ö» yangi alifboda qanday yoziladi?', opts: ['Ö ö (17)', 'O o (16)', 'U u (24)', 'I i (10)'], a: 'Ö ö (17)' },
+  { q: 'Alifboning 29-örnida qaysi belgi turadi?', opts: ['ʼ (tutuq)', 'Ng ng', 'Ş ş', 'Ç ç'], a: 'ʼ (tutuq)' },
+      { q: '«Quyoş» sözi qanday yoziladi?', opts: ['Quyoş', 'Quyos', 'Quyoch', 'Qöyoş'], a: 'Quyoş' },
+  { q: '«Ördak» sözining töğri yangi yozuvi:', opts: ['Ördak', 'Ordak', 'Urdak', 'Ğördak'], a: 'Ördak' },
+      { q: '«Çoynak» sözi qaysi harf bilan boshlanadi?', opts: ['Ç', 'Ş', 'C', 'Ğ'], a: 'Ç' },
+      { q: '«Maʼno» sözida 29-belgi qanday qöyiladi?', opts: ['Maʼno', 'Mano', 'Mağno', 'Maçno'], a: 'Maʼno' },
+  { q: '«Ğoz» sözining bosh harfi qaysi?', opts: ['Ğ', 'G', 'Q', 'Ö'], a: 'Ğ' },
+  { q: '«Boğ» sözi oxirida qaysi harf yoziladi?', opts: ['ğ', 'g', 'q', 'ç'], a: 'ğ' },
+  { q: '«Shamol» sözining yangi shakli:', opts: ['Şamol', 'Çamol', 'Samol', 'Ğamol'], a: 'Şamol' },
+  { q: 'Alifboda 1-örindagi unli harf:', opts: ['A a', 'O o', 'E e', 'I i'], a: 'A a' },
+      { q: '«Aʼlo» sözidagi belgi neçinçi örinda?', opts: ['29 · ʼ', '28 · Z', '17 · Ö', '3 · Ç'], a: '29 · ʼ' },
   { q: 'Qaysi harf UNLI tovush hisoblanadi?', opts: ['Ö ö', 'Ş ş', 'Ç ç', 'Ğ ğ'], a: 'Ö ö' },
-  { q: '«Ol-ma» so‘zida nechta bo‘g‘in bor?', opts: ['2 ta', '1 ta', '3 ta', '4 ta'], a: '2 ta' },
-  { q: '«Ka-pa-lak» so‘zi nechta bo‘g‘indan iborat?', opts: ['3 ta', '2 ta', '1 ta', '4 ta'], a: '3 ta' },
-  { q: '«Katta» so‘zining ziddi qaysi?', opts: ['Kiçik', 'Uzun', 'Issiq', 'Tez'], a: 'Kiçik' },
-  { q: '«Issiq» so‘zining ziddi qaysi?', opts: ['Sovuq', 'Baland', 'Yangi', 'Şirin'], a: 'Sovuq' },
-  { q: '«Qalam» so‘zi qaysi harf bilan boshlanadi?', opts: ['Q', 'K', 'G', 'Ğ'], a: 'Q' },
-  { q: 'Qizil va sariq rang qo‘shilsa qaysi rang chiqadi?', opts: ['Zarğaldoq', 'Yaşil', 'Kök', 'Qora'], a: 'Zarğaldoq' },
-  { q: 'Ko‘k va sariq rang qo‘shilsa qaysi rang bo‘ladi?', opts: ['Yaşil', 'Binafşa', 'Puşti', 'Kulrang'], a: 'Yaşil' },
-  { q: 'Alifboda oxirgi harf (28-o‘rin) qaysi?', opts: ['Z z', 'Y y', 'X x', 'V v'], a: 'Z z' },
-  { q: '«Kitob» so‘zida nechta bo‘g‘in bor?', opts: ['2 ta', '1 ta', '3 ta', '4 ta'], a: '2 ta' }
+  { q: '«Ol-ma» sözida nechta böğin bor?', opts: ['2 ta', '1 ta', '3 ta', '4 ta'], a: '2 ta' },
+  { q: '«Ka-pa-lak» sözi nechta böğindan iborat?', opts: ['3 ta', '2 ta', '1 ta', '4 ta'], a: '3 ta' },
+  { q: '«Katta» sözining ziddi qaysi?', opts: ['Kiçik', 'Uzun', 'Issiq', 'Tez'], a: 'Kiçik' },
+  { q: '«Issiq» sözining ziddi qaysi?', opts: ['Sovuq', 'Baland', 'Yangi', 'Şirin'], a: 'Sovuq' },
+  { q: '«Qalam» sözi qaysi harf bilan boshlanadi?', opts: ['Q', 'K', 'G', 'Ğ'], a: 'Q' },
+  { q: 'Qizil va sariq rang qöshilsa qaysi rang chiqadi?', opts: ['Zarğaldoq', 'Yaşil', 'Kök', 'Qora'], a: 'Zarğaldoq' },
+  { q: 'Kök va sariq rang qöshilsa qaysi rang böladi?', opts: ['Yaşil', 'Binafşa', 'Puşti', 'Kulrang'], a: 'Yaşil' },
+  { q: 'Alifboda oxirgi harf (28-örin) qaysi?', opts: ['Z z', 'Y y', 'X x', 'V v'], a: 'Z z' },
+  { q: '«Kitob» sözida nechta böğin bor?', opts: ['2 ta', '1 ta', '3 ta', '4 ta'], a: '2 ta' }
 ];
 
 function makeRandomMathDuelQuestion() {
@@ -2921,7 +2921,7 @@ export function openEduGame(item, onClose) {
   function gameMagicZap() {
     clearActiveGame();
     const allPairs = [
-      { old: 'shahar', neo: 'Ş', full: 'şahar' },
+      { old: 'şahar', neo: 'Ş', full: 'Şahar' },
       { old: 'choy', neo: 'Ç', full: 'çoy' },
       { old: "o'rdak", neo: 'Ö', full: 'ördak' },
       { old: "g'oz", neo: 'Ğ', full: 'ğoz' },
@@ -3363,7 +3363,7 @@ export function openEduGame(item, onClose) {
     nextMix();
   }
 
-  // ── 21. SYLLABLE CLAPPER (Bo‘g‘in Sanagiç) ───────────────────────────────
+  // ── 21. SYLLABLE CLAPPER (Böğin Sanagiç) ───────────────────────────────
   function gameSyllableClap() {
     clearActiveGame();
     const words = [

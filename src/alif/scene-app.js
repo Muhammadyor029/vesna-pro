@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 window.gsap = gsap;
     import { EDU_ITEMS, drawEduCardFrame, openEduGame, closeEduGame, isEduGameOpen, onBgReady } from './edu-engine.js';
+    import { t as ct, st } from './senior-content.js';
     import { createAlphabetView } from './alphabet-view.ts';
     import { initLivingBackground, initLiquidGlassNavbar, setLivingBgRoute, spawnBgPulse } from './living-bg.ts';
     import { createCrystalField } from './crystal-bg.ts';
@@ -1150,7 +1151,7 @@ window.gsap = gsap;
       const host = document.getElementById('proj-canvas');
       const bubbleEl = document.getElementById('proj-view-bubble');
 
-      const projItems = ITEMS.slice(0, 40);
+      const projItems = ITEMS;
       const touch = isTouchDevice();
 
       const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
@@ -1303,16 +1304,16 @@ window.gsap = gsap;
       scrollGroup.add(headlineMesh);
 
       const SCRAMBLE_GLYPHS = ['.', ':', '·', ',', ';', '_'];
-      const headlineRuns = {
+      const headlineRuns = () => ({
         desktop: [
-          { text: 'Boşlanğiç va maktabga kiruvçilar uçun ', font: '500 16px "Nunito", ui-sans-serif, sans-serif', tracking: -0.16, color: '#ededeb' },
-          { text: 'Alifbo, Mantiq va Hisob — 40 Öyin', font: '400 17px "Nunito", ui-serif, serif', tracking: 0, color: '#ededeb' }
+          { text: `${st('hero1')} `, font: '500 16px "Nunito", ui-sans-serif, sans-serif', tracking: -0.16, color: '#ededeb' },
+          { text: st('hero2'), font: '400 17px "Nunito", ui-serif, serif', tracking: 0, color: '#ededeb' }
         ],
         phone: [
-          { text: 'Boşlanğiç va maktabga tayyorlov', font: '500 16px "Nunito", ui-sans-serif, sans-serif', tracking: -0.16, color: '#ededeb' },
-          { text: 'Alifbo, Mantiq va 40 Öyin', font: '400 17px "Nunito", ui-serif, serif', tracking: 0, color: '#ededeb' }
+          { text: `${st('hero1')} `, font: '500 16px "Nunito", ui-sans-serif, sans-serif', tracking: -0.16, color: '#ededeb' },
+          { text: st('short'), font: '400 17px "Nunito", ui-serif, serif', tracking: 0, color: '#ededeb' }
         ]
-      };
+      });
 
       const scrambleSeeds = [];
       for (let i = 0; i < 80; i++) {
@@ -1380,7 +1381,7 @@ window.gsap = gsap;
         const inkColor = isDayMode() ? '#0f172a' : '#ededeb';
 
         if (!isPhone) {
-          const runs = headlineRuns.desktop;
+          const runs = headlineRuns().desktop;
           ctx.font = runs[0].font;
           const w0 = measureTracked(ctx, runs[0].text, runs[0].tracking);
           ctx.font = runs[1].font;
@@ -1397,7 +1398,7 @@ window.gsap = gsap;
           ctx.fillStyle = inkColor;
           drawTrackedText(ctx, resolveStr(runs[1].text, runs[0].text.length), sx, cy, runs[1].tracking);
         } else {
-          const runs = headlineRuns.phone;
+          const runs = headlineRuns().phone;
           ctx.textAlign = 'center';
           ctx.font = runs[0].font;
           ctx.fillStyle = inkColor;
@@ -1443,7 +1444,7 @@ window.gsap = gsap;
         ctx.textBaseline = 'middle';
         if (!isPhone) {
           ctx.textAlign = 'center';
-          ctx.fillText('VESNA — Yangi Özbek Alifbosi Ş Ç Ö Ğ', vw / 2, ch / 2);
+          ctx.fillText(`VESNA PRO — ${st('subtitle')}`, vw / 2, ch / 2);
         } else {
           ctx.textAlign = 'left';
           ctx.fillText('VESNA', 8, ch / 2);
@@ -2657,18 +2658,20 @@ window.gsap = gsap;
 
           const tracking = -0.01 * hSize;
           let linesSpec;
+          const heroA = st('hero1');
+          const heroB = st('hero2');
           if (!isNarrow) {
             linesSpec = [
-              { type: 'text', text: 'Harflar, raqamlar va' },
-              { type: 'text', text: 'quvnoq öyinlar bilan ilk' },
+              { type: 'text', text: heroA },
+              { type: 'text', text: heroB },
               { type: 'motion' }
             ];
           } else {
             const maxW = vw - 48;
-            const l1 = wrapLines('Harflar, raqamlar va', fontH, maxW);
-            const l2 = wrapLines('quvnoq öyinlar bilan ilk', fontH, maxW);
+            const l1 = wrapLines(heroA, fontH, maxW);
+            const l2 = wrapLines(heroB, fontH, maxW);
             linesSpec = [...l1.map((t) => ({ type: 'text', text: t })), ...l2.map((t) => ({ type: 'text', text: t }))];
-            const wMotionPlus = measureTrackedLine('Bilim', fontH, tracking) + 8 + measureTrackedLine('™', fontTm, 0) + measureTrackedLine(' sari birinçi qadam.', fontH, tracking);
+            const wMotionPlus = measureTrackedLine('VESNA', fontH, tracking) + 8 + measureTrackedLine('™', fontTm, 0) + measureTrackedLine(` · ${st('short')}`, fontH, tracking);
             if (wMotionPlus <= maxW) {
               linesSpec.push({ type: 'motion' });
             } else {
@@ -2724,8 +2727,7 @@ window.gsap = gsap;
               }
             });
 
-            // Subtitle: "Yangi özbek alifbosi · Ş · Ç · Ö · Ğ"
-            const prefix = 'Yangi özbek alifbosi · ';
+            const prefix = `${st('hero1')} · `;
             const brand = 'Ş · Ç · Ö · Ğ';
             ctx.font = fontSub;
             ctx.textAlign = 'left';
@@ -2770,64 +2772,64 @@ window.gsap = gsap;
         const stops = [
           {
             kind: 'paragraph', side: 'top',
-            heading: 'Yangi alifbo',
-            body: 'Yangi özbek alifbosi: 29 ta harf (Ç, Ğ, Ö, Ş va tutuq belgisi ʼ) bilan oson öqiş.',
+            heading: st('hero1'),
+            body: st('about'),
             wrapW: Math.min(320, maxBlockW)
           },
           {
             kind: 'list', side: 'bottom',
-            heading: 'Bölimlar',
-            rows: ['Harf taniş va yoziş', 'Böğin va söz tuziş', 'Raqamlar 1–20', 'Mantiq, şakl va soat']
+            heading: st('sections'),
+            rows: st('sectionsRows').split('|')
           },
           {
             kind: 'chapter', side: 'top',
-            heading: '1-qism  ·  Harflar',
+            heading: st('chapter1'),
             numeral: 'I',
-            body: 'Har bir tovuşni öyin va misollar bilan tez eslab qoliş mumkin.',
+            body: st('chapter1Body'),
             wrapW: Math.min(300, maxBlockW)
           },
           {
             kind: 'quote', side: 'bottom',
-            quote: '“Öynab örganilgan bilim bir umr esda qoladi.”',
-            note: '— Ilk qadamlar daftari',
+            quote: st('quote1'),
+            note: st('quote1Note'),
             wrapW: Math.min(440, maxBlockW)
           },
           {
             kind: 'stats', side: 'top',
-            heading: '40 ta Maşq',
-            rows: ['12  Alifbo va öqiş', '10  Raqam va hisob', '10  Mantiq, şakl va soat', '08  Rang, zid söz va PvP']
+            heading: st('stats'),
+            rows: st('statsRows').split('|')
           },
           {
             kind: 'paragraph', side: 'bottom',
-            heading: 'Matematika va Mantiq',
-            body: 'Nuqtalar, tarozi va şakllar yordamida hisob va mantiqni tez örganing.',
+            heading: `${ct('math')} · ${ct('logic')}`,
+            body: st('mathBody'),
             wrapW: Math.min(320, maxBlockW)
           },
           {
             kind: 'chapter', side: 'top',
-            heading: '2-qism  ·  Hisob',
+            heading: st('chapter2'),
             numeral: 'II',
-            body: 'Kiçik misollar katta muvaffaqiyatlarga yöl oçadi.',
+            body: st('chapter2Body'),
             wrapW: Math.min(300, maxBlockW)
           },
           {
             kind: 'list', side: 'bottom',
-            heading: 'Yangi belgilar',
-            rows: ['Ç ç — Çoynak, Çana', 'Ğ ğ — Ğoz, Toğ', 'Ö ö — Ördak, Öt', 'Ş ş · ʼ — Şir, Maʼno']
+            heading: st('signs'),
+            rows: st('signsRows').split('|')
           },
           {
             kind: 'quote', side: 'top',
-            quote: "“Har kuni beş daqiqa maşq — aʼlo bilim kaliti.”",
-            note: '— Maktabga tayyorlov',
+            quote: st('quote2'),
+            note: st('quote2Note'),
             wrapW: Math.min(440, maxBlockW)
           },
           {
             kind: 'links', side: 'bottom',
-            heading: 'Boşlaş',
+            heading: st('start'),
             rows: [
-              { text: 'Alifbo taxtasini oçiş →', action: 'alphabet', color: inkCol },
-              { text: 'Barcha 40 ta maşq →', action: 'projects', color: inkCol },
-              { text: 'Boşlanğiç va maktabga kiruvçilar uçun', action: null, color: muteCol }
+              { text: `${ct('nav_letters')} →`, action: 'alphabet', color: inkCol },
+              { text: `${st('startRows').split('|')[1]} →`, action: 'projects', color: inkCol },
+              { text: st('startRows').split('|')[2], action: null, color: muteCol }
             ]
           }
         ];

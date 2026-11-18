@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import {
   EDU_ITEMS as SENIOR_ITEMS,
   GRADES,
+  SUBJECTS,
   getContentLang,
   makeQuestions,
   setContentLang,
@@ -149,13 +150,37 @@ function buildTopControls(item, mode) {
   });
   gradeBox.appendChild(sel);
 
+  let subjectBox = topRight.querySelector('#edu-subject-box');
+  if (!subjectBox) {
+    subjectBox = document.createElement('div');
+    subjectBox.id = 'edu-subject-box';
+    subjectBox.className = 'senior-grade';
+    topRight.insertBefore(subjectBox, gradeBox.nextSibling);
+  }
+  subjectBox.innerHTML = `<span>${L('subject')}</span>`;
+  const subSel = document.createElement('select');
+  subSel.setAttribute('aria-label', L('subject'));
+  SUBJECTS.forEach((s) => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    opt.textContent = L(s);
+    subSel.appendChild(opt);
+  });
+  subSel.value = item.subject || 'uzbek';
+  subSel.addEventListener('change', () => {
+    const next = SENIOR_ITEMS.find((it) => it.subject === subSel.value && it.grades.includes(grade))
+      || SENIOR_ITEMS.find((it) => it.subject === subSel.value);
+    if (next) openEduGame(next, onCloseCb, true);
+  });
+  subjectBox.appendChild(subSel);
+
   let replayBtn = topRight.querySelector('#edu-head-replay');
   if (!replayBtn) {
     replayBtn = document.createElement('button');
     replayBtn.type = 'button';
     replayBtn.id = 'edu-head-replay';
     replayBtn.className = 'pill-btn';
-    topRight.insertBefore(replayBtn, gradeBox.nextSibling);
+    topRight.insertBefore(replayBtn, subjectBox.nextSibling);
   }
   replayBtn.textContent = `↻ ${L('replay')}`;
   replayBtn.onclick = () => {
@@ -259,7 +284,7 @@ function mountQuiz(item) {
     if (ok) score++;
     modalScore.textContent = `★ ${score}`;
     star.textContent = `★ ${score}`;
-    feedback.textContent = `${ok ? L('correct') : L('wrong')} · ${q.explain}`;
+    feedback.textContent = `${ok ? L('correct') : L('wrong')} · ${L('solution')} ${q.explain}`;
     feedback.classList.toggle('is-ok', ok);
     feedback.classList.toggle('is-bad', !ok);
     options.querySelectorAll('.senior-opt').forEach((b, i) => {
@@ -473,7 +498,7 @@ function mountPvp(track) {
     if (!answered[1]) { answered[1] = { ok: false, skipped: true }; status1.textContent = L('no_answer'); }
     if (!answered[2]) { answered[2] = { ok: false, skipped: true }; status2.textContent = L('no_answer'); }
     result.hidden = false;
-    result.textContent = `${rounds[round].q.explain}`;
+    result.textContent = `${L('solution')} ${rounds[round].q.explain}`;
     renderScores();
     if (round === rounds.length - 1) {
       nextBtn.textContent = L('finish');

@@ -1,9 +1,10 @@
 /* ALIF.12 — qo'shimcha qatlam:
    tillar (uz/kaa/ru/en), kontakt, sozlamalar, robot-yordamchi, ko'z dam olish taymeri,
-   to'lqin effekti (sayt so'nadi va qaytadi), ko'z mashqlari, xatolarni ko'rsatish.
+   to'lqin effekti (sayt so'nadi va qaytadi), ko'z maşqlari, xatolarni ko'rsatish.
    Asosiy 3D kod (index.html) bilan faqat DOM va 'alif:robot-click' hodisasi orqali bog'lanadi. */
 
 import { toggleTheme, onThemeChange } from './theme.ts';
+import { EDU_ITEMS as SENIOR_ITEMS, setContentLang, st } from './senior-content.js';
 
 // ───────────────────────── SOZLAMALAR (SHUNI O'ZGARTIR) ─────────────────────────
 const CONFIG = {
@@ -18,21 +19,21 @@ const CONFIG = {
   snoozeMin: 5,
   promptAutoMs: 12000                // robot xabaridan keyin to'lqin o'zi boshlanadi
 };
-const DEMO = /[?&]demo\b/.test(location.search); // ?demo — taqdimot uchun: 30 s da eslatma, 15 s dam olish
+const DEMO = /[?&]demo\b/.test(location.search); // ?demo — taqdimot uçun: 30 s da eslatma, 15 s dam olish
 
 // ───────────────────────── TARJIMALAR ─────────────────────────
 // Qoraqalpoq (kaa) matnlari TEKSHIRILISHI KERAK (ona tili egasi bilan).
 const I18N = {
   uz: {
-    nav_sphere: 'Fanlar xaritasi', nav_games: 'Mashqlar', nav_letters: 'Fanlar', nav_alphabet: 'Yoʻriqnoma', nav_contact: 'Boğlaniş',
-    hint_spin: 'AYLANTIRIB TANLANG', play_arrow: 'Boshlash →', close: 'Yopish', scroll: 'SURİŞ',
+    nav_sphere: 'Fanlar xaritasi', nav_games: 'Maşqlar', nav_letters: 'Fanlar', nav_alphabet: 'Yöriqnoma', nav_contact: 'Boğlaniş',
+    hint_spin: 'AYLANTIRIB TANLANG', play_arrow: 'Boşlaş →', close: 'Yopiş', scroll: 'SURİŞ',
     menu_intro: '5–11-sinf: matematika va tillar',
     gallery_left: '5–11-SINF', gallery_right: 'MATEMATIKA · TILLAR',
-    tag1: '5–11-sinf', tag2: 'Matematika va tillar', tag3: 'Tezkor mashq',
+    tag1: '5–11-sinf', tag2: 'Matematika va tillar', tag3: 'Tezkor maşq',
     set_every: 'Köz uçun dam oliş eslatmasi', set_rest: 'Dam oliş davomiyligi', min: 'daq', sec: 's',
     rest_now: 'Hozir dam olamiz', eye_now: 'Köz maşqi',
     theme_mode: 'Kungi / Tungi rejim', theme_day: 'Kun', theme_night: 'Tun',
-    guide_btn: 'Yoʻriqnoma', guide_title: 'VESNA PRO — Yoʻriqnoma', guide_sub: '5–11-sinf oʻquvchilari va oʻqituvchilari uchun',
+    guide_btn: 'Yöriqnoma', guide_title: 'VESNA PRO — Yöriqnoma', guide_sub: '5–11-sinf öquvçilari va öqituçilari uçun',
     greet: ['Salom! Men Vesna. Meni bosib kör!', 'Birga öynaymizmi?'],
     again: 'Yana salom! Davom etamizmi?',
     prompt_now: 'Hozir dam olamiz', prompt_later: '5 daqiqadan keyin',
@@ -157,8 +158,8 @@ const I18N = {
   }
 };
 const LANGS = [
-  { code: 'uz', name: 'O‘zbekcha', short: 'UZ' },
-  { code: 'kaa', name: 'Qaraqalpaqsha', short: 'QQ' },
+  { code: 'uz', name: 'Özbekçe', short: 'UZ' },
+  { code: 'kaa', name: 'Qaraqalpaqça', short: 'QQ' },
   { code: 'ru', name: 'Русский', short: 'RU' },
   { code: 'en', name: 'English', short: 'EN' }
 ];
@@ -177,7 +178,7 @@ const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) 
 const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// ───────────────────────── XATOLARNI KO'RSATISH (telefonda tashxis uchun) ─────────────────────────
+// ───────────────────────── XATOLARNI KO'RSATISH (telefonda tashxis uçun) ─────────────────────────
 const toast = document.createElement('div');
 toast.className = 'alif-toast';
 document.body.appendChild(toast);
@@ -238,6 +239,7 @@ let lang = detectLang();
 function t(key) { return (I18N[lang] && I18N[lang][key]) ?? I18N.uz[key] ?? key; }
 
 function applyLang() {
+  setContentLang(lang);
   document.documentElement.lang = lang === 'kaa' ? 'kk-Latn' : lang;
   document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
   const cur = LANGS.find((l) => l.code === lang);
@@ -248,6 +250,8 @@ function applyLang() {
   renderGuide();
   const guideNavBtn = $('#nav-guide');
   if (guideNavBtn) guideNavBtn.title = t('guide_btn');
+  const creditEl = $('#site-credit');
+  if (creditEl) creditEl.textContent = st('credit');
   window.dispatchEvent(new CustomEvent('alif:lang', { detail: { lang } }));
 }
 function setLang(code) {
@@ -643,7 +647,7 @@ async function startRest(origin, opts = {}) {
   };
   tick();
   restTimerId = setInterval(() => {
-    if (exerciseRunning) return; // mashq paytida taymer kutadi
+    if (exerciseRunning) return; // maşq paytida taymer kutadi
     restLeft -= 1;
     tick();
     if (restLeft <= 0) { clearInterval(restTimerId); endRest(); }
@@ -768,7 +772,7 @@ function startExercise(id) {
       el.title.textContent = t('ex_done');
       el.sub.textContent = t('back_msg');
       hop();
-      restLeft = Math.min(restLeft, 3); // mashqdan keyin tez qaytamiz
+      restLeft = Math.min(restLeft, 3); // maşqdan keyin tez qaytamiz
     }
   };
   exerciseRunning = { cancel: () => finish(false) };
@@ -810,160 +814,160 @@ function startExercise(id) {
 // ───────────────────────── SAYT YO'RIQNOMASI (ALIFBO BÖLIMIDA) ─────────────────────────
 const GUIDE_DATA = {
   uz: {
-    lead: 'VESNA — boşlanğiç va maktabga kiruvçilar uçun 29 ta harf, raqamlar, mantiq va 40 ta öyin.',
+    lead: `VESNA PRO — 5–11-sinf uchun Ona tili, fanlar va ${SENIOR_ITEMS.length} ta mashq.`,
     cards: [
       {
         title: '1. Sfera',
-        tag: '20 ta karta',
+        tag: 'Fanlar kartası',
         items: [
-          'Şarni aylantirib mavzuni tanlang.',
+          'Şarni aylantirib fan yoki sinfni tanlang.',
           'Kartani ikki marta bosib «Öynaş →» tugmasini bosing.'
         ]
       },
       {
-        title: '2. Maşqlar',
-        tag: '40 öyin · PvP',
+        title: '2. Bölimlar',
+        tag: 'Ona tili + fanlar',
         items: [
-          'Har bir öyinda har xil savollar beriladi, bitta öyin içida ham, qaytadan ham takrorlanmaydi.',
-          'Yuqoridagi «⚔️ PvP» va «↻ Qayta» tugmalari bilan 2 kişi bellashing.'
+          'Ona tili, matematika, rus va ingliz tillari, qoraqalpoq tili, mantiq bölimlari bor.',
+          'Har bir savolda tög‘ri javob va qisqa yechim körsatiladi.'
         ]
       },
       {
-        title: '3. Harflar (29 ta)',
-        tag: 'A – ʼ + Öyinlar',
+        title: `3. Mashqlar (${SENIOR_ITEMS.length})`,
+        tag: 'Har xil savollar · PvP',
+        items: [
+          'Har bir öyinda savollar takrorlanmaydi; yechimlar alohida körsatiladi.',
+          '«⚔️ PvP» bilan bir ekranda ikki öyinchi bellashadi.'
+        ]
+      },
+      {
+        title: '4. Yangi alifbo',
+        tag: '29 harf · Ç Ğ Ö Ş ʼ',
         items: [
           '3. Ç, 8. Ğ, 17. Ö, 22. Ş va 29. ʼ (tutuq belgisi) tartibida jadval.',
-          'Pastdagi til öyinlari va «⚔️ Alifbo PvP Duel»ni birga öynang.'
-        ]
-      },
-      {
-        title: '4. Alifbo (Robot) va Kun/Tun',
-        tag: 'Kun / Tun',
-        items: [
-          'Robotça bilan suhbatlaşing, köz dam oliş taymeri va maşqini oçing.',
-          'Tepadagi sariq/qora kalit bilan kun va tun rejimini almaştiring.'
+          'Til özgarishida butun sayt, jumladan bu yöriqnoma ham özgaradi.'
         ]
       }
     ],
     footLeft: 'Yopiş: ESC yoki «Yopiş».',
-    footRight: 'VESNA'
+    footRight: st('credit')
   },
   kaa: {
-    lead: 'VESNA — baslawısh hám mektepke kirer balalar ushın 29 hárip hám 40 interaktiv oyın.',
+    lead: `VESNA PRO — 5–11-klass ushın ana tili, pánler hám ${SENIOR_ITEMS.length} mashıq.`,
     cards: [
       {
         title: '1. Sfera',
-        tag: '20 karta',
+        tag: 'Pánler kartası',
         items: [
-          'Shardı aylandırıp tema saylań.',
+          'Shardı aylandırıp pán yamasa klass saylań.',
           'Kartanı eki márte basıp «Oynaw →» túymesin basıń.'
         ]
       },
       {
-        title: '2. Shınıǵıwlar',
-        tag: '40 oyın · PvP',
+        title: '2. Bólimler',
+        tag: 'Ana tili + pánler',
         items: [
-          'Hár bir oyında sorawlar qaytalawlanbay jańadan beriledi.',
-          'Joqarıdaǵı «⚔️ PvP» hám «↻ Qayta» arqalı 2 oyınshı jarısıń.'
+          'Ana tili, matematika, rus hám inglis tilleri, qaraqalpaq tili, mantiq bólimleri bar.',
+          'Hár sorawda durıs juwap hám qısqa sheshiw kórsetiledi.'
         ]
       },
       {
-        title: '3. Háripler (29)',
-        tag: 'A – ʼ + Oyınlar',
+        title: `3. Mashıqlar (${SENIOR_ITEMS.length})`,
+        tag: 'Jańa sorawlar · PvP',
+        items: [
+          'Hár oyında sorawlar qaytalanbaydı; sheshiwi ajıratıp kórsetiledi.',
+          '«⚔️ PvP» arqalı bir ekranda eki oyınshı jarısıń.'
+        ]
+      },
+      {
+        title: '4. Jańa álippe',
+        tag: '29 hárip · Ç Ğ Ö Ş ʼ',
         items: [
           '3. Ç, 8. Ğ, 17. Ö, 22. Ş hám 29. ʼ tártibinde álipbe.',
-          'Til oyınları hám «⚔️ PvP Duel» usı bólimde de bar.'
-        ]
-      },
-      {
-        title: '4. Álipbe (Robot) hám Kún/Tún',
-        tag: 'Kún / Tún',
-        items: [
-          'Robotsha arqalı kóz dem alıwı hám shınıǵıwlardı qosıń.',
-          'Joqarıdaǵı túyme menen kún hám tún rejimine ótiń.'
+          'Til ózgergende pútkil sayt, sonıń ishinde bul baǵanısh ta ózgeredi.'
         ]
       }
     ],
     footLeft: 'Jabıw: ESC yamasa «Jabıw».',
-    footRight: 'VESNA'
+    footRight: st('credit')
   },
   ru: {
-    lead: 'VESNA — 40 интерактивных игр для дошкольников и начинающих: 29 букв, счёт и логика.',
+    lead: `VESNA PRO — узбекский язык, предметы и ${SENIOR_ITEMS.length} упражнений для 5–11 класса.`,
     cards: [
       {
         title: '1. Сфера',
-        tag: '20 карточек',
+        tag: 'Карта предметов',
         items: [
-          'Поверните 3D-шар и выберите тему.',
+          'Поверните шар и выберите предмет или класс.',
           'Нажмите на карточку дважды и выберите «Играть →».'
         ]
       },
       {
-        title: '2. Игры',
-        tag: '40 игр · PvP',
+        title: '2. Разделы',
+        tag: 'Узбекский + предметы',
         items: [
-          'Вопросы внутри каждой игры и при перезапуске не повторяются.',
-          'Кнопки «⚔️ PvP» и «↻ Qayta» запускают парный режим и повтор.'
+          'Узбекский, математика, русский, английский, каракалпакский и логика.',
+          'После каждого вопроса показываются ответ и краткое решение.'
         ]
       },
       {
-        title: '3. Буквы (29)',
-        tag: 'A – ʼ + Игры',
+        title: `3. Упражнения (${SENIOR_ITEMS.length})`,
+        tag: 'Новые вопросы · PvP',
         items: [
-          'Порядок с 3. Ç, 8. Ğ, 17. Ö, 22. Ş и 29. ʼ (tutuq belgisi).',
-          'Языковые игры и «⚔️ PvP Дуэль» встроены прямо сюда.'
+          'Вопросы не повторяются, а решение выводится отдельно.',
+          'Кнопка «⚔️ PvP» запускает дуэль двух игроков на одном экране.'
         ]
       },
       {
-        title: '4. Азбука (Робот) и Тема',
-        tag: 'День / Ночь',
+        title: '4. Новый алфавит',
+        tag: '29 букв · Ç Ğ Ö Ş ʼ',
         items: [
-          'Нажмите на робота для паузы и гимнастики для глаз.',
-          'Переключатель сверху меняет дневную и ночную тему.'
+          'Порядок: 3. Ç, 8. Ğ, 17. Ö, 22. Ş и 29. ʼ.',
+          'При смене языка меняется весь сайт, включая эту справку.'
         ]
       }
     ],
     footLeft: 'Закрыть: ESC или «Закрыть».',
-    footRight: 'VESNA'
+    footRight: st('credit')
   },
   en: {
-    lead: 'VESNA features 40 non-repeating interactive games for early learners and school entrants.',
+    lead: `VESNA PRO — Uzbek, subjects and ${SENIOR_ITEMS.length} exercises for grades 5–11.`,
     cards: [
       {
         title: '1. Sphere',
-        tag: '20 cards',
+        tag: 'Subject map',
         items: [
-          'Rotate the globe to pick a topic.',
+          'Rotate the globe to pick a subject or grade.',
           'Tap a card twice and press Play →.'
         ]
       },
       {
-        title: '2. Games',
-        tag: '40 games · PvP',
+        title: '2. Sections',
+        tag: 'Uzbek + subjects',
         items: [
-          'Every game deals fresh non-repeating prompts and equations.',
-          'Use «⚔️ PvP» and «↻ Qayta» inside any game to duel or restart.'
+          'Uzbek, maths, Russian, English, Karakalpak and logic sections.',
+          'Every question ends with the answer and a short solution.'
         ]
       },
       {
-        title: '3. Letters (29)',
-        tag: 'A – ʼ + Games',
+        title: `3. Exercises (${SENIOR_ITEMS.length})`,
+        tag: 'Fresh questions · PvP',
         items: [
-          'Full 1–29 order including Ç, Ğ, Ö, Ş, and 29. ʼ (tutuq belgisi).',
-          'Includes all language mini-games and PvP Alphabet Duel.'
+          'Questions never repeat and the solution is shown separately.',
+          'Use «⚔️ PvP» for a two-player duel on one screen.'
         ]
       },
       {
-        title: '4. Alphabet (Robot) & Theme',
-        tag: 'Day / Night',
+        title: '4. New alphabet',
+        tag: '29 letters · Ç Ğ Ö Ş ʼ',
         items: [
-          'Interact with the 3D robot and open eye-care breaks anytime.',
-          'Use the top switch to toggle between Night and Day modes.'
+          'Order: 3. Ç, 8. Ğ, 17. Ö, 22. Ş and 29. ʼ.',
+          'Changing the language updates the entire site, including this guide.'
         ]
       }
     ],
     footLeft: 'Press ESC or Close to collapse.',
-    footRight: 'VESNA'
+    footRight: st('credit')
   }
 };
 
@@ -1018,7 +1022,7 @@ function renderGuide() {
   const fl = document.createElement('span');
   fl.textContent = g.footLeft;
   const fr = document.createElement('strong');
-  fr.textContent = g.footRight;
+  fr.textContent = st('credit');
   foot.append(fl, fr);
 
   guideBody.append(hero, grid, foot);
